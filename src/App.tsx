@@ -2,6 +2,7 @@ import Navbar from "./components/Navbar";
 import TextAnimator from "./components/TextAnimator";
 import About from "./sections/About";
 import Skills from "./sections/Skills";
+import Work from "./sections/Work";
 
 const App = () => {
     return (
@@ -10,6 +11,7 @@ const App = () => {
             <TextAnimator />
             <About />
             <Skills />
+            <Work />
         </div>
     );
 };
