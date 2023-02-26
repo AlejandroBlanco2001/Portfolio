@@ -1,0 +1,134 @@
+@import url('https://fonts.googleapis.com/css2?family=Mukta:wght@300&family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+@keyframes text-animation-exit {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    90%{
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: "Quicksand", sans-serif !important;
+}
+
+.text-section {
+    font-size: 35px;
+    font-weight: 600;
+}
+
+.menu-navbar{
+    position: sticky;
+    top: 0;
+    width: 100%;
+    height: 100px;
+    ul{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        gap: 67px;
+        li{
+            font-size: 25px;
+            font-weight: 400;
+        
+            a{
+                color: #ffffff;
+                text-decoration: underline 3px rgba(251, 35, 118,0);
+                text-underline-offset: 10px;
+                transition: text-decoration-color 0.7s;
+
+                &:hover{
+                    text-decoration-color: rgba(251, 35, 118,1);
+                }
+            }
+        }
+    }
+}
+
+.text-animator {
+    display: block;
+    height: 400px;
+    
+    .main-wrapper{
+        display: block;
+        margin-top: 200px;
+    }
+
+    .highlight{
+        font-weight: bold;
+    }
+
+    .pharse-animated{
+    }
+
+    h1{
+        text-align: center;
+        margin-bottom: 20px;
+        margin-left: auto;
+        font-size: 60px;
+        font-weight: 300;
+    }
+}
+
+.about-section{
+    margin-left: 175px;
+    flex-direction: column;
+
+    .about-wrapper{
+        margin-top: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+        gap: 50px;
+
+        img{
+            width: 350px;
+            height: 350px;
+            border-radius: 50%;
+            border: 11px solid #4073A3;
+        }
+    }
+
+    p{
+        display: block;
+        width: 1000px;
+        font-size: 30px;
+        word-wrap: wrap;
+        font-weight: 300;
+    }
+}
+
+
+.skills-section{
+    margin-top: 200px;
+    margin-left: 175px;
+
+    .grid-skills{
+        margin-top: 100px;
+        margin-right: 200px;
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        justify-items: center;
+        gap: 170px 0px;
+
+        .grid-skills-item{
+            img{
+                width: 100px;
+                height: 100px;
+                margin: auto;
+            }
+        }
+    }
+}
