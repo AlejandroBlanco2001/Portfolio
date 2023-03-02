@@ -4,17 +4,17 @@ const TextAnimator = () => {
     const [index, setIndex] = useState<number>(0);
 
     const pharses: string[] = [
-        "optimist. 🥛",
-        "bookworm. 📚",
-        "gymnast. 🤸",
-        "traveler. 🌎",
-        "data scientist. 👨‍🔬",
+        "optimist.🥛",
+        "bookworm.📚",
+        "gymnast.🤸",
+        "traveler.🌎",
+        "data scientist.👨‍🔬",
     ];
 
     useEffect(() => {
         const interval = setInterval(() => {
             setIndex((prev) => (prev + 1) % pharses.length);
-        }, 4000);
+        }, 2000);
 
         return () => clearInterval(interval);
     }, [index]);
@@ -27,7 +27,7 @@ const TextAnimator = () => {
                     <span className="highlight">Web Developer</span>{" "}
                 </h1>
                 <h1>
-                    <span className="lock-text">and</span>{" "}
+                    <span className="lock-text">and a </span>{" "}
                     <span className="pharse-animated">{pharses[index]}</span>
                 </h1>
             </div>
