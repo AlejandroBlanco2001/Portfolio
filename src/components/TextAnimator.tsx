@@ -27,7 +27,7 @@ const TextAnimator = () => {
                     <span className="highlight">Web Developer</span>{" "}
                 </h1>
                 <h1>
-                    and{" "}
+                    <span className="lock-text">and</span>{" "}
                     <span className="pharse-animated">{pharses[index]}</span>
                 </h1>
             </div>

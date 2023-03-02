@@ -1,4 +1,7 @@
 import profile from "../assets/images/other/profile.jpg";
+import CV_Spanish from "../assets/file/IsaacAlejandroBlancoAmador_CVE.pdf";
+import CV_English from "../assets/file/IsaacAlejandroBlancoAmador_CVI.pdf";
+
 
 const About = () => {
     return (
@@ -30,6 +33,14 @@ const About = () => {
                         available for freelancer work, but you can contact me
                         anyway and say hello.
                     </p>
+                    <div className="about-resume">
+                        <a href={CV_Spanish} download>
+                            <span>Resume in Spanish &#8595;</span>
+                        </a>
+                        <a href={CV_English} download>
+                            <span>Resume in English &#8595;</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

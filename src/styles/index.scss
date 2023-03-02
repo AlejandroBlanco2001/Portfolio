@@ -2,18 +2,14 @@
 
 $work-frames-color: #FB2576, #D7BB27, #85ED7C;
 
-@keyframes text-animation-exit {
+@keyframes text-animation-exit{
     0% {
         opacity: 1;
         transform: translateY(0);
     }
     90%{
-        opacity: 1;
-        transform: translateY(0);
-    }
-    100% {
         opacity: 0;
-        transform: translateY(20px);
+        transform: translateY(30px);
     }
 }
 
@@ -91,18 +87,26 @@ body {
     .main-wrapper{
         display: block;
         margin-top: 200px;
-    }
+        
+        h1{
+            text-align: center;
+            margin-bottom: 20px;
+            margin-left: auto;
+            font-size: 60px;
+            font-weight: 300;
+        }
+        .highlight{
+            font-weight: bold;
+        }
 
-    .highlight{
-        font-weight: bold;
-    }
+        .lock-text{
+            position: absolute;
+        }
 
-    h1{
-        text-align: center;
-        margin-bottom: 20px;
-        margin-left: auto;
-        font-size: 60px;
-        font-weight: 300;
+        .pharse-animated{
+            display: inline-block;
+            animation: text-animation-exit 3.5s infinite ease-in-out;
+        }
     }
 }
 
@@ -139,6 +143,17 @@ body {
                 font-size: 20px;
                 word-wrap: wrap;
                 font-weight: 300;
+            }
+        }
+
+        .about-resume{
+            margin-top: 40px;
+            a{
+                text-decoration: none;
+                color: white;
+            }
+            span{
+                margin-right: 20px;
             }
         }
     }
@@ -274,10 +289,6 @@ body {
             }
         }
 
-        .btn{
-            margin-left: calc(50% - 180px);
-        }
-
         .social-media{
             a{
                 svg{
@@ -335,10 +346,15 @@ footer{
                 width: 350px;
                 height: 350px;
             }
-            .about.text{
+            .about-text{
                 p{
                     font-size: 25px;
                 }
+            }
+
+            .about-resume{
+                text-align: center;
+                font-size: 20px;
             }
         }
     }
@@ -369,6 +385,14 @@ footer{
                         text-align: left;
                     }
                 }
+            }
+        }
+    }
+
+    .contact-section{
+        .contact-container{
+            .btn{
+                margin-left: calc(50% - 180px);
             }
         }
     }
