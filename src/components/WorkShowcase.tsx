@@ -1,18 +1,34 @@
-const WorkShowcase = ({title, description, image, orientation, link} : {title: string, description: string, image: string, orientation: string, link: string}) => {
-    
+import Button from "./Button";
+import { WorkShowcaseProps } from "../types";
+
+const WorkShowcase = ({
+    title,
+    description,
+    image,
+    orientation,
+    link,
+}: WorkShowcaseProps) => {
     const moveToLink = () => window.open(link, "_blank");
-    
+
     return (
         <div className="work">
-            {orientation === "left" ? <img src={image} alt={title + " image"}/> : <div></div>}
-            <div className="work-text">    
+            {orientation === "left" ? (
+                <img src={image} alt={title + " image"} />
+            ) : (
+                <div></div>
+            )}
+            <div className="work-text">
                 <h4>{title}</h4>
                 <p>{description}</p>
-                <button onClick={moveToLink} className="btn">GitHub</button> 
+                <Button onClickFunction={moveToLink} text="GitHub"></Button>
             </div>
-            {orientation === "right" ? <img src={image} alt={title + " image"}/> : <div></div>}
+            {orientation === "right" ? (
+                <img src={image} alt={title + " image"} />
+            ) : (
+                <div></div>
+            )}
         </div>
-    )
-}
+    );
+};
 
-export default WorkShowcase
+export default WorkShowcase;

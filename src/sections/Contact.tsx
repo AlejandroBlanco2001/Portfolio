@@ -1,6 +1,7 @@
 import { useState } from "react";
 import git from "../assets/images/other/github.svg";
 import linkedin from "../assets/images/other/linkedin.svg";
+import Button from "../components/Button";
 
 const Contact = () => {
     const [data, setData] = useState({ name: "", message: "" });
@@ -89,9 +90,7 @@ const Contact = () => {
                         </svg>
                     </a>
                 </div>
-                <button onClick={sendForm} type="submit" className="btn">
-                    Send
-                </button>
+                <Button onClickFunction={sendForm} text="Send" />
             </div>
         </div>
     );

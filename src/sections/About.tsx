@@ -2,7 +2,6 @@ import profile from "../assets/images/other/profile.jpg";
 import CV_Spanish from "../assets/file/IsaacAlejandroBlancoAmador_CVE.pdf";
 import CV_English from "../assets/file/IsaacAlejandroBlancoAmador_CVI.pdf";
 
-
 const About = () => {
     return (
         <div className="section about-section">
