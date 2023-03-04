@@ -20,7 +20,7 @@ const TextAnimator = () => {
     }, [index]);
 
     return (
-        <div className="text-animator">
+        <div className="text-animator" id="home">
             <div className="main-wrapper">
                 <h1>
                     G'day my name is Isaac Blanco, a{" "}

@@ -1,10 +1,10 @@
-import logos from "../assets/images/logos/";
+import logos from "../assets/images/icons";
 
 const Skills = () => {
     const skills = logos;
 
     return (
-        <div className="section skills-section">
+        <div className="section skills-section" id="skills">
             <h2 className="text-section">Skills & Tools</h2>
             <h3 className="inner-header">My Toolbox & Things I Can Do</h3>
             <p>

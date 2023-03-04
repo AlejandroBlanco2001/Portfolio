@@ -1,7 +1,6 @@
 import { useState } from "react";
-import git from "../assets/images/other/github.svg";
-import linkedin from "../assets/images/other/linkedin.svg";
 import Button from "../components/Button";
+import email from "../assets/images/icons/email.png";
 
 const Contact = () => {
     const [data, setData] = useState({ name: "", message: "" });
@@ -23,7 +22,7 @@ const Contact = () => {
     };
 
     return (
-        <div className="section contact-section">
+        <div className="section contact-section" id="contact">
             <h2 className="text-section">Contact</h2>
             <h3 className="inner-header">Get in touch</h3>
             <div className="contact-container">
@@ -90,7 +89,12 @@ const Contact = () => {
                         </svg>
                     </a>
                 </div>
-                <Button onClickFunction={sendForm} text="Send" />
+                <Button
+                    logo={email}
+                    onClickFunction={sendForm}
+                    text="Send"
+                    extra_classes="contact-btn"
+                />
             </div>
         </div>
     );

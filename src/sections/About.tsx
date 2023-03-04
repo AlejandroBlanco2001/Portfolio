@@ -4,7 +4,7 @@ import CV_English from "../assets/file/IsaacAlejandroBlancoAmador_CVI.pdf";
 
 const About = () => {
     return (
-        <div className="section about-section">
+        <div className="section about-section" id="about">
             <h2 className="text-section">About</h2>
             <h3 className="inner-header">Who is Isaac?</h3>
             <div className="about-wrapper">
