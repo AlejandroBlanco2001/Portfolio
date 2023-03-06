@@ -29,7 +29,7 @@ const Work = () => {
                 />
                 <WorkShowcase
                     title="Langton's Ant"
-                    description="Langton's ant is a web application that simulates the universal Turing machine of Langton's ant proposed by Chris Langton in 1986, developed on Typescript, HTML and CSS."
+                    description="Langton's ant is a web application that simulates the universal Turing machine of Langton's ant proposed by Chris Langton in 1986, developed in Typescript, HTML and CSS."
                     orientation="left"
                     image={Langton}
                     link="https://github.com/AlejandroBlanco2001/Langton-s-ant"

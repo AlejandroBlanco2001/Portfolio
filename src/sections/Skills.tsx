@@ -21,12 +21,12 @@ const Skills = () => {
             </div>
             <h3 className="inner-header">Current working on</h3>
             <p>
-                I am currently learning more in deepth about React and Redux on
+                I am currently learning more in depth about React and Redux on
                 terms of Frontend and FastAPI and SpringBoot on terms of
                 Backend. I am also learning more about DevOps and Cloud
-                Computing. I am also learning more about UX/UI Design and I am
-                currently working on a project to improve my skills in this
-                area.
+                Computing. Not only that, but I am also learning more about
+                UX/UI Design, and I am currently working on a project to improve
+                my skills in this area.
             </p>
         </div>
     );
