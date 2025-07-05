@@ -1,3 +1,4 @@
+import { githubService } from "@/lib/services";
 import { JSX, useState } from "react";
 
 export default function useTerminal() {
@@ -31,7 +32,9 @@ export default function useTerminal() {
                 setHistory((prev) => [...prev, { command: "about", output: "About me" }]);
                 break;
             case "projects":
-                setHistory((prev) => [...prev, { command: "projects", output: "Projects" }]);
+                githubService.getRepos().then((repos) => {
+                    setHistory((prev) => [...prev, { command: "projects", output: repos.map((repo: any) => repo.name).join("\n") }]);
+                });
                 break;
             case "contact":
                 setHistory((prev) => [...prev, { command: "contact", output: "Contact" }]);
