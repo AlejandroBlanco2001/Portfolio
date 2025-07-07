@@ -35,7 +35,7 @@ export default function useTerminal() {
                 setHistory((prev) => [...prev, { command: "projects", output: "PROJECTS_COMPONENT" }]);
                 break;  
             case "contact":
-                setHistory((prev) => [...prev, { command: "contact", output: "Contact" }]);
+                setHistory((prev) => [...prev, { command: "contact", output: "CONTACT_COMPONENT" }]);
                 break;
             case "resume":
                 setHistory((prev) => [...prev, { command: "resume", output: "Resume" }]);

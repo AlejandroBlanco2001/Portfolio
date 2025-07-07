@@ -6,6 +6,7 @@ import { AlertDialogHeader, AlertDialogFooter } from "./alert-dialog";
 import useTerminal from "@/hooks/command";
 import Peanut from "@/app/peanut";
 import Projects from "@/app/projects";
+import Contact from "@/app/contact";
 
 export default function Terminal() {
     const { history, runCommand, validateCommand } = useTerminal();
@@ -34,6 +35,8 @@ export default function Terminal() {
                 return <Peanut />;
             case "PROJECTS_COMPONENT":
                 return <Projects />;
+            case "CONTACT_COMPONENT":
+                return <Contact />;
             default:
                 return output;
         }
