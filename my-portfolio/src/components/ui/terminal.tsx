@@ -4,6 +4,7 @@ import { AlertDialog, AlertDialogContent, AlertDialogTitle, AlertDialogCancel, A
 import { useState, useRef, useEffect } from "react";
 import { AlertDialogHeader, AlertDialogFooter } from "./alert-dialog";
 import useTerminal from "@/hooks/command";
+import Peanut from "@/app/peanut";
 
 export default function Terminal() {
     const { history, runCommand, validateCommand } = useTerminal();
@@ -28,19 +29,17 @@ export default function Terminal() {
 
     return (
         <>
-            {isClosed && (
-                <AlertDialog open>
-                    <AlertDialogContent>
-                        <AlertDialogHeader>
-                            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-                        </AlertDialogHeader>
-                        <AlertDialogFooter>
-                            <AlertDialogCancel className="cursor-pointer" onClick={() => setIsClosed(false)}>Cancel</AlertDialogCancel>
-                            <AlertDialogAction className="cursor-pointer" onClick={handleClose}>Close</AlertDialogAction>
-                        </AlertDialogFooter>
-                    </AlertDialogContent>
-                </AlertDialog>
-            )}
+            <AlertDialog open={isClosed}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel className="cursor-pointer" onClick={() => setIsClosed(false)}>Cancel</AlertDialogCancel>
+                        <AlertDialogAction className="cursor-pointer" onClick={handleClose}>Close</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
 
             <div className="bg-gray-900 rounded-lg shadow-2xl w-full h-96 max-w-4xl mx-auto flex flex-col">
 
@@ -76,7 +75,7 @@ export default function Terminal() {
                                 <span className="text-white">{item.command}</span>
                             </div>
                             <div className="mb-2">
-                                {item.output}
+                                {item.output === "PEANUT_COMPONENT" ? <Peanut /> : item.output}
                             </div>
                         </div>
                     ))}

@@ -13,6 +13,7 @@ export default function useTerminal() {
         "resume",
         "exit",
         "history",
+        "peanut",
     ]
 
     const runCommand = (command: string) => {
@@ -47,6 +48,9 @@ export default function useTerminal() {
                 break;
             case "history":
                 setHistory((prev) => [...prev, { command: "history", output: history.map((item) => item.command).join("\n") }]);
+                break;
+            case "peanut":
+                setHistory((prev) => [...prev, { command: "peanut", output: "PEANUT_COMPONENT" }]);
                 break;
             default:
                 setHistory((prev) => [...prev, { command: command, output: "Command not found" }]);
