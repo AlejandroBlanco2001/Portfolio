@@ -62,7 +62,7 @@ export default function Contact() {
                     <button
                         className="text-green-400 hover:text-green-300 transition-colors"
                         type="submit"
-                        onClick={(e) => handleSubmit(e as React.FormEvent<HTMLFormElement>)}
+                        onClick={(e) => handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>)}
                     >
                         send-message
                     </button>

@@ -7,6 +7,8 @@ import useTerminal from "@/hooks/command";
 import Peanut from "@/app/peanut";
 import Projects from "@/app/projects";
 import Contact from "@/app/contact";
+import Socials from "@/app/socials";
+import Help from "@/app/help";
 
 export default function Terminal() {
     const { history, runCommand, validateCommand } = useTerminal();
@@ -37,6 +39,10 @@ export default function Terminal() {
                 return <Projects />;
             case "CONTACT_COMPONENT":
                 return <Contact />;
+            case "SOCIALS_COMPONENT":
+                return <Socials />;
+            case "HELP_COMPONENT":
+                return <Help />;
             default:
                 return output;
         }

@@ -13,6 +13,7 @@ export default function useTerminal() {
         "resume",
         "exit",
         "history",
+        "socials",
         "peanut",
     ]
 
@@ -26,7 +27,7 @@ export default function useTerminal() {
                 setHistory([]);
                 break;
             case "help":
-                setHistory((prev) => [...prev, { command: "help", output: "Available commands: clear, help, about, projects, contact, resume, exit" }]);
+                setHistory((prev) => [...prev, { command: "help", output: "HELP_COMPONENT" }]);
                 break;
             case "about":
                 setHistory((prev) => [...prev, { command: "about", output: "About me" }]);
@@ -42,6 +43,9 @@ export default function useTerminal() {
                 break;
             case "exit":
                 setHistory((prev) => [...prev, { command: "exit", output: "Exiting..." }]);
+                break;
+            case "socials":
+                setHistory((prev) => [...prev, { command: "socials", output: "SOCIALS_COMPONENT" }]);
                 break;
             case "history":
                 setHistory((prev) => [...prev, { command: "history", output: history.map((item) => item.command).join("\n") }]);
