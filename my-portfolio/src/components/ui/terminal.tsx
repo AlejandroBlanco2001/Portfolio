@@ -5,6 +5,7 @@ import { useState, useRef, useEffect } from "react";
 import { AlertDialogHeader, AlertDialogFooter } from "./alert-dialog";
 import useTerminal from "@/hooks/command";
 import Peanut from "@/app/peanut";
+import Projects from "@/app/projects";
 
 export default function Terminal() {
     const { history, runCommand, validateCommand } = useTerminal();
@@ -25,6 +26,17 @@ export default function Terminal() {
 
     const handleClose = () => {
         window.location.href = "https://www.youtube.com/watch?v=xvFZjo5PgG0&list=RDxvFZjo5PgG0&start_radio=1";
+    }
+
+    const selectOutput = (output: string) => {
+        switch (output) {
+            case "PEANUT_COMPONENT":
+                return <Peanut />;
+            case "PROJECTS_COMPONENT":
+                return <Projects />;
+            default:
+                return output;
+        }
     }
 
     return (
@@ -75,7 +87,7 @@ export default function Terminal() {
                                 <span className="text-white">{item.command}</span>
                             </div>
                             <div className="mb-2">
-                                {item.output === "PEANUT_COMPONENT" ? <Peanut /> : item.output}
+                                {selectOutput(item.output)}
                             </div>
                         </div>
                     ))}

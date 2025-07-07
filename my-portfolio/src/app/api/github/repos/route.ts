@@ -1,52 +1,70 @@
 import { NextResponse } from 'next/server';
+import { Repo } from './types';
 
-export interface Repo {
-    id: number;
-    name: string;
-    description: string;
-    html_url: string;
-    homepage: string;
-    language: string;
-    stargazers_count: number;
-    forks_count: number;
-    updated_at: string;
+const USERNAME = 'AlejandroBlanco2001';
+
+const getPinnedRepos = async () => {
+  const response = await fetch(`https://api.github.com/graphql`, {
+    method: 'POST',
+    headers: {
+      'Authorization': `bearer ${process.env.GITHUB_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      query: `
+        query {
+          user(login: "${USERNAME}") {
+            pinnedItems(first: 6, types: REPOSITORY) {
+              nodes {
+                ... on Repository {
+                  id
+                  name
+                  description
+                  homepageUrl
+                  primaryLanguage {
+                    name
+                  }
+                  stargazerCount
+                  forkCount
+                  updatedAt
+                  url
+                }
+              }
+            }
+          }
+        }
+      `
+    }),
+  });
+
+  if (!response.ok) {
+    throw new Error(`GitHub API responded with status: ${response.status}`);
+  }
+
+  const { data } = await response.json();
+
+  const formattedRepos : Repo[] = data.user.pinnedItems.nodes.map((repo: any) => ({
+    id: repo.id,
+    name: repo.name,
+    description: repo.description,
+    homepage: repo.homepageUrl,
+    language: repo.primaryLanguage?.name,
+    stargazers_count: repo.stargazerCount,
+    forks_count: repo.forkCount, 
+    updated_at: repo.updatedAt,
+    url: repo.url,
+  }));
+
+  console.log(formattedRepos);
+
+  return formattedRepos;
 }
 
-export async function GET() : Promise<NextResponse<Repo[] | { error: string }>> {
+
+export async function GET(request: Request) : Promise<NextResponse<Repo[] | { error: string }>> {
   try {
-    const username = 'AlejandroBlanco2001';
-    
-    const response = await fetch(`https://api.github.com/users/${username}/repos`, {
-      headers: {
-        'Accept': 'application/vnd.github.v3+json',
-        'Authorization': `token ${process.env.GITHUB_TOKEN}`
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`GitHub API responded with status: ${response.status}`);
-    }
-
-    const repos = await response.json();
-
-    console.log(repos);
-
-    const formattedRepos : Repo[] = repos
-      .filter((repo: any) => !repo.fork)
-      .sort((a: any, b: any) => new Date(b.updated_at).getTime() - new Date(a.updated_at).getTime())
-      .slice(0, 6)
-      .map((repo: any) => ({
-        id: repo.id,
-        name: repo.name,
-        description: repo.description,
-        homepage: repo.homepage,
-        language: repo.language,
-        stargazers_count: repo.stargazers_count,
-        forks_count: repo.forks_count,
-        updated_at: repo.updated_at,
-      }));
-
-    return NextResponse.json(formattedRepos);
+    const pinnedRepos = await getPinnedRepos();
+    return NextResponse.json(pinnedRepos);
   } catch (error) {
     console.error('GitHub API error:', error);
 
@@ -55,4 +73,4 @@ export async function GET() : Promise<NextResponse<Repo[] | { error: string }>> 
       { status: 500 }
     );
   }
-} 
+}

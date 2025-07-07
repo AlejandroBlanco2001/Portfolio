@@ -2,7 +2,7 @@ import { githubService } from "@/lib/services";
 import { JSX, useState } from "react";
 
 export default function useTerminal() {
-    const [history, setHistory] = useState<{ command: string, output: string | JSX.Element }[]>([]);
+    const [history, setHistory] = useState<{ command: string, output: string }[]>([]);
 
     const AVAILABLE_COMMANDS = [
         "clear",
@@ -21,7 +21,6 @@ export default function useTerminal() {
     };
 
     const executeCommand = (command: string) => {
-        console.log(`command: ${command}`);
         switch (command) {
             case "clear":
                 setHistory([]);
@@ -33,10 +32,8 @@ export default function useTerminal() {
                 setHistory((prev) => [...prev, { command: "about", output: "About me" }]);
                 break;
             case "projects":
-                githubService.getRepos().then((repos) => {
-                    setHistory((prev) => [...prev, { command: "projects", output: repos.map((repo: any) => repo.name).join("\n") }]);
-                });
-                break;
+                setHistory((prev) => [...prev, { command: "projects", output: "PROJECTS_COMPONENT" }]);
+                break;  
             case "contact":
                 setHistory((prev) => [...prev, { command: "contact", output: "Contact" }]);
                 break;
