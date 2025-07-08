@@ -10,7 +10,7 @@ import Help from "@/app/help";
 import Exit from "@/app/exit";
 
 export default function Terminal() {
-    const { history, runCommand, validateCommand } = useTerminal();
+    const { history, runCommand, validateCommand, currentIndex, setCurrentIndex } = useTerminal();
     const [currentCommand, setCurrentCommand] = useState("");
     const terminalRef = useRef<HTMLDivElement>(null);
 
@@ -45,6 +45,45 @@ export default function Terminal() {
                 return <Exit />;
             default:
                 return output;
+        }
+    }
+
+    const handleKeyInputs = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        switch (e.key) {
+            case "Enter":
+                e.preventDefault();
+
+                if (currentCommand.trim() === "") return;
+                handleCommand(currentCommand);
+                setCurrentIndex(null);
+                break;
+            case "ArrowUp":
+                e.preventDefault();
+                if (history.length === 0) return;
+                setCurrentIndex((prev) => {
+                    const newIndex = prev === null ? history.length - 1 : Math.max(prev - 1, 0);
+                    setCurrentCommand(history[newIndex].command);
+                    return newIndex;
+                });
+                break;
+            case "ArrowDown":
+                e.preventDefault();
+                if (history.length === 0) return;
+                setCurrentIndex((prev) => {
+                    if (prev === null) return null
+
+                    const newIndex = prev + 1;
+                    if(newIndex >= history.length) {
+                        setCurrentCommand("");
+                        return null
+                    }
+                    setCurrentCommand(history[newIndex].command);
+                    return newIndex;
+                });
+
+                break;
+            default:
+                break;
         }
     }
 
@@ -99,11 +138,7 @@ export default function Terminal() {
                             placeholder="Type a command..."
                             value={currentCommand}
                             onChange={(e) => setCurrentCommand(e.target.value)}
-                            onKeyDown={(e) => {
-                                if (e.key === 'Enter') {
-                                    handleCommand(currentCommand);
-                                }
-                            }}
+                            onKeyDown={(e) => handleKeyInputs(e)}
                         />
                     </div>
                 </div>

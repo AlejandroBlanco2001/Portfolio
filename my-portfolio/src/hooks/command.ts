@@ -1,8 +1,8 @@
-import { githubService } from "@/lib/services";
-import { JSX, useState } from "react";
+import { useState } from "react";
 
 export default function useTerminal() {
     const [history, setHistory] = useState<{ command: string, output: string }[]>([]);
+    const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
     const AVAILABLE_COMMANDS = [
         "clear",
@@ -22,6 +22,14 @@ export default function useTerminal() {
     };
 
     const executeCommand = (command: string) => {
+        setCurrentIndex(prev => {
+            if (command === "clear") {
+                return 0;
+            } else {
+                return prev === null ? 0 : prev + 1;
+            }
+        });
+
         switch (command) {
             case "clear":
                 setHistory([]);
@@ -62,6 +70,6 @@ export default function useTerminal() {
         return AVAILABLE_COMMANDS.includes(command.trim());
     }
 
-    return { history, runCommand, validateCommand };
+    return { history, runCommand, validateCommand, currentIndex, setCurrentIndex };
 }
 
