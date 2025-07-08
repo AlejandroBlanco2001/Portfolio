@@ -42,7 +42,7 @@ export default function useTerminal() {
                 setHistory((prev) => [...prev, { command: "resume", output: "Resume" }]);
                 break;
             case "exit":
-                setHistory((prev) => [...prev, { command: "exit", output: "Exiting..." }]);
+                setHistory((prev) => [...prev, { command: "exit", output: "EXIT_COMPONENT"}]);
                 break;
             case "socials":
                 setHistory((prev) => [...prev, { command: "socials", output: "SOCIALS_COMPONENT" }]);
