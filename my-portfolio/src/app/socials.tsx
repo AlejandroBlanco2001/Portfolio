@@ -1,3 +1,5 @@
+import { LINKEDIN_URL, GITHUB_URL, GITLAB_URL, MEDIUM_URL } from "@/constants";
+
 export default function Socials() {
 
     interface Social {
@@ -9,22 +11,22 @@ export default function Socials() {
     const socials = [
         {
             name: "LinkedIn",
-            url: "https://www.linkedin.com/in/alejandroblancoamador/",
+            url: LINKEDIN_URL,
             icon: "linkedin",
         },
         {
             name: "GitHub",
-            url: "https://github.com/AlejandroBlanco2001",
+            url: GITHUB_URL,
             icon: "github",
         },
         {
             name: "GitLab",
-            url: "https://gitlab.com/AlejandroBlanco2001",
+            url: GITLAB_URL,
             icon: "gitlab",
         },
         {
             name: "Medium",
-            url: "https://medium.com/@alex.zgz",
+            url: MEDIUM_URL,
             icon: "medium",
         },
     ]

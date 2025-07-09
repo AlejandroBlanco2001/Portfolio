@@ -1,6 +1,5 @@
 import { useState } from "react";
-
-const EMAIL = "alex.zgz@live.com";
+import { EMAIL } from "@/constants";
 
 export default function Contact() {
     const [name, setName] = useState("");
