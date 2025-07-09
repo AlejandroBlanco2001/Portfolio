@@ -1,24 +1,71 @@
 import { useState } from "react";
+import { Command } from "./types";
 
 export default function useTerminal() {
     const [history, setHistory] = useState<{ command: string, output: string }[]>([]);
     const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
-    const AVAILABLE_COMMANDS = [
-        "clear",
-        "help",
-        "about",
-        "projects",
-        "contact",
-        "resume",
-        "exit",
-        "history",
-        "socials",
-        "peanut",
-    ]
+    const commands = Object.freeze<Record<string, Command>>(
+        {
+            "help": {
+                command: "help",
+                output: "HELP_COMPONENT",
+                subCommands: null,
+            },
+            "about": {
+                command: "about",
+                output: "About me",
+                subCommands: null,
+            },
+            "projects": {
+                command: "projects",
+                output: "PROJECTS_COMPONENT",
+                subCommands: null,
+            },
+            "contact": {
+                command: "contact",
+                output: "CONTACT_COMPONENT",
+                subCommands: null,
+            },
+            "resume": {
+                command: "resume",
+                output: "Resume",
+                subCommands: null,
+            },
+            "exit": {
+                command: "exit",
+                output: "EXIT_COMPONENT",
+                subCommands: null,
+            },
+            "history": {
+                command: "history",
+                output: history.map((item) => item.command).join("\n"),
+                subCommands: null,
+            },
+            "peanut": {
+                command: "peanut",
+                output: "PEANUT_COMPONENT",
+                subCommands: null,
+            },
+            "clear": {
+                command: "clear",
+                output: "",
+                subCommands: null,
+            },
+            "socials": {
+                command: "socials",
+                output: "SOCIALS_COMPONENT",
+                subCommands: null,
+            }
+        }
+    );
 
     const runCommand = (command: string) => {
-        executeCommand(command);
+        if (command === "clear") {
+            setHistory([]);
+        } else {
+            executeCommand(command);
+        }
     };
 
     const executeCommand = (command: string) => {
@@ -30,44 +77,17 @@ export default function useTerminal() {
             }
         });
 
-        switch (command) {
-            case "clear":
-                setHistory([]);
-                break;
-            case "help":
-                setHistory((prev) => [...prev, { command: "help", output: "HELP_COMPONENT" }]);
-                break;
-            case "about":
-                setHistory((prev) => [...prev, { command: "about", output: "About me" }]);
-                break;
-            case "projects":
-                setHistory((prev) => [...prev, { command: "projects", output: "PROJECTS_COMPONENT" }]);
-                break;  
-            case "contact":
-                setHistory((prev) => [...prev, { command: "contact", output: "CONTACT_COMPONENT" }]);
-                break;
-            case "resume":
-                setHistory((prev) => [...prev, { command: "resume", output: "Resume" }]);
-                break;
-            case "exit":
-                setHistory((prev) => [...prev, { command: "exit", output: "EXIT_COMPONENT"}]);
-                break;
-            case "socials":
-                setHistory((prev) => [...prev, { command: "socials", output: "SOCIALS_COMPONENT" }]);
-                break;
-            case "history":
-                setHistory((prev) => [...prev, { command: "history", output: history.map((item) => item.command).join("\n") }]);
-                break;
-            case "peanut":
-                setHistory((prev) => [...prev, { command: "peanut", output: "PEANUT_COMPONENT" }]);
-                break;
-            default:
-                setHistory((prev) => [...prev, { command: command, output: "Command not found" }]);
+        const commandObject = commands[command] ?? null;
+
+        if (commandObject) {
+            setHistory((prev) => [...prev, { command: commandObject.command, output: commandObject.output }]);
+        } else {
+            setHistory((prev) => [...prev, { command: command, output: "Command not found" }]);
         }
     }
 
     const validateCommand = (command: string) => {
-        return AVAILABLE_COMMANDS.includes(command.trim());
+        return commands[command] !== undefined;
     }
 
     return { history, runCommand, validateCommand, currentIndex, setCurrentIndex };

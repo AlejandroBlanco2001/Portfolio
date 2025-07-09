@@ -31,8 +31,6 @@ export default function Terminal() {
         runCommand("exit");
     }
 
-
-
     const handleKeyInputs = (e: React.KeyboardEvent<HTMLInputElement>) => {
         switch (e.key) {
             case "Enter":
