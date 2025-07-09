@@ -8,6 +8,8 @@ import Contact from "@/app/contact";
 import Socials from "@/app/socials";
 import Help from "@/app/help";
 import Exit from "@/app/exit";
+import CommandLine from "./command";
+import { INITIAL_PHRASE } from "@/constants";
 
 export default function Terminal() {
     const { history, runCommand, validateCommand, currentIndex, setCurrentIndex } = useTerminal();
@@ -29,24 +31,7 @@ export default function Terminal() {
         runCommand("exit");
     }
 
-    const selectOutput = (output: string) => {
-        switch (output) {
-            case "PEANUT_COMPONENT":
-                return <Peanut />;
-            case "PROJECTS_COMPONENT":
-                return <Projects />;
-            case "CONTACT_COMPONENT":
-                return <Contact />;
-            case "SOCIALS_COMPONENT":
-                return <Socials />;
-            case "HELP_COMPONENT":
-                return <Help />;
-            case "EXIT_COMPONENT":
-                return <Exit />;
-            default:
-                return output;
-        }
-    }
+
 
     const handleKeyInputs = (e: React.KeyboardEvent<HTMLInputElement>) => {
         switch (e.key) {
@@ -104,30 +89,17 @@ export default function Terminal() {
 
                 {/* Terminal Content */}
                 <div ref={terminalRef} className="p-4 font-mono text-green-400 flex-1 overflow-y-auto no-scrollbar">
-                    <div className="mb-2">
-                        <span className="text-blue-400">isaac@archlinux</span>
-                        <span className="text-gray-400">:</span>
-                        <span className="text-yellow-400">~</span>
-                        <span className="text-gray-400">$</span>
-                        <span className="ml-2">whoami</span>
-                    </div>
-                    <div className="text-white">
-                        I'm Isaac Blanco, a backend engineer who builds systems, not screens —
-                        but since I have no designer... I made this UI myself, because real programmers use the terminal.
-                    </div>
+                    <CommandLine 
+                        command="whoami" 
+                        output={INITIAL_PHRASE}
+                    />
 
                     {history.map((item, index) => (
                         <div key={index}>
-                            <div className="mb-2">
-                                <span className="text-blue-400">isaac@archlinux</span>
-                                <span className="text-gray-400">:</span>
-                                <span className="text-yellow-400">~</span>
-                                <span className="text-gray-400">$</span>
-                                <span className="text-white">{item.command}</span>
-                            </div>
-                            <div className="mb-2">
-                                {selectOutput(item.output)}
-                            </div>
+                            <CommandLine 
+                                command={item.command} 
+                                output={item.output}
+                            />
                         </div>
                     ))}
 
