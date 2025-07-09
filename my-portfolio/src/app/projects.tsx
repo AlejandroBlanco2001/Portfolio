@@ -11,32 +11,42 @@ export default function Projects() {
         });
     }, []);
 
+    const formatDate = (date: string) => {
+        return new Intl.DateTimeFormat('en-GB', {
+            year: 'numeric',
+            month: 'short',
+            day: '2-digit',
+        }).format(new Date(date));
+    }
+
+
     const renderRepos = (repo: Repo) => {
         return (
-            <li key={repo.id} className="font-mono p-2 border-b border-gray-700 hover:bg-gray-800/50 cursor-pointer" onClick={() => window.open(repo.url, '_blank')}>
+            <li key={repo.id} role="button" tabIndex={0} aria-label={`Open ${repo.name} on GitHub`} className="font-mono p-2 border-b border-gray-700 hover:bg-gray-800/50 cursor-pointer" onClick={() => window.open(repo.url, '_blank')}>
                 <div className="flex items-center gap-2">
                     <span className="text-blue-400">$</span>
                     <span className="text-green-400">{repo.name}</span>
                     <span className="text-yellow-400">({repo.language})</span>
                     <span className="text-gray-400">--stars</span>
                     <span className="text-white">{repo.stargazers_count}</span>
-                    <span className="text-gray-400">--forks</span> 
+                    <span className="text-gray-400">--forks</span>
                     <span className="text-white">{repo.forks_count}</span>
                     <span className="text-gray-400">--updated</span>
-                    <span className="text-white">{new Date(repo.updated_at).toLocaleDateString()}</span>
+                    <span className="text-white">{formatDate(repo.updated_at)}</span>
                 </div>
-                <div className="ml-6 text-gray-400 text-sm">
+                <div className="ml-6 text-gray-400 text-sm truncate max-w-4xl">
                     {'>'} {repo.description}
                 </div>
             </li>
         )
     }
-    
+
     return (
         <div className="flex flex-col gap-4">
             {repos.length === 0 ? (
-                <div className="flex gap-1">
-                    <span className="animate-[bounce_1s_ease-in-out_infinite]">.</span>
+                <div className="font-mono text-gray-400">
+                    isaac@archlinux:~$ loading
+                    <span className="ml-2 animate-[bounce_1s_ease-in-out_infinite]">.</span>
                     <span className="animate-[bounce_1s_ease-in-out_infinite] delay-[0.2s]">.</span>
                     <span className="animate-[bounce_1s_ease-in-out_infinite] delay-[0.4s]">.</span>
                 </div>
