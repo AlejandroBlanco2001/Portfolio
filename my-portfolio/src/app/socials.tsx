@@ -56,7 +56,7 @@ export default function Socials() {
 
     return (
         <div className="flex flex-col gap-2">
-            <div className="font-mono text-green-400">$ Executing alias 'ls social-links'</div>
+            <div className="font-mono text-green-400">$  alias 'ls social-links'</div>
             <ul className="flex flex-col gap-2">
                 {socials.map((social) => renderSocial(social))}
             </ul>

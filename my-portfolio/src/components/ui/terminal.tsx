@@ -87,6 +87,10 @@ export default function Terminal() {
         }
     }
 
+    const lastCommandIsExit =
+        history.length > 0 &&
+        history[history.length - 1].command.trim().toLowerCase() === "exit";
+
     return (
         <>
             <div className="bg-gray-900 rounded-lg shadow-2xl w-full h-96 max-w-4xl mx-auto flex flex-col">
@@ -127,20 +131,22 @@ export default function Terminal() {
                         </div>
                     ))}
 
-                    <div className="mt-2">
-                        <span className="text-blue-400">isaac@archlinux</span>
-                        <span className="text-gray-400">:</span>
-                        <span className="text-yellow-400">~</span>
-                        <span className="text-gray-400">$</span>
-                        <input
-                            type="text"
-                            className={`ml-2 bg-transparent focus:outline-none w-64 ${validateCommand(currentCommand) ? 'text-green-400' : 'text-white'}`}
-                            placeholder="Type a command..."
-                            value={currentCommand}
-                            onChange={(e) => setCurrentCommand(e.target.value)}
-                            onKeyDown={(e) => handleKeyInputs(e)}
-                        />
-                    </div>
+                    {!lastCommandIsExit && (
+                        <div className="mt-2">
+                            <span className="text-blue-400">isaac@archlinux</span>
+                            <span className="text-gray-400">:</span>
+                            <span className="text-yellow-400">~</span>
+                            <span className="text-gray-400">$</span>
+                            <input
+                                type="text"
+                                className={`ml-2 bg-transparent focus:outline-none w-64 ${validateCommand(currentCommand) ? 'text-green-400' : 'text-white'}`}
+                                placeholder="Type a command..."
+                                value={currentCommand}
+                                onChange={(e) => setCurrentCommand(e.target.value)}
+                                onKeyDown={(e) => handleKeyInputs(e)}
+                            />
+                        </div>
+                    )}
                 </div>
             </div>
         </>

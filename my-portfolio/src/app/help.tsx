@@ -1,12 +1,14 @@
 export default function Help() {
     const commands: Record<string, string> = {
-        clear: "Clear the terminal",
-        help: "Show this help message",
-        about: "Show information about me",
-        projects: "Show my projects",
-        contact: "Show my contact information",
-        resume: "Show my resume",
-        exit: "Exit the terminal",
+        clear: "Clear the terminal 🧹",
+        help: "Show this help message 🤖",
+        about: "Show information about me 👨‍💻",
+        projects: "Show my projects 🚀",
+        contact: "Show my contact information 📬",
+        resume: "Download my resume 📄",
+        exit: "Exit the terminal 👋",
+        history: "Show the history of commands 🕑",
+        peanut: "Peanut butter jelly time! 🥜🧈🪼⏱️",
     }
 
     const renderCommand = (command: string) => {
@@ -26,7 +28,6 @@ export default function Help() {
 
     return (
         <div className="flex flex-col gap-1">
-            <div className="font-mono text-green-400 text-sm">$ Executing alias 'help'</div>
             <div className="font-mono text-white text-sm">Available commands:</div>
             <ul className="flex flex-col gap-1">
                 {Object.keys(commands).map((command) => renderCommand(command))}
