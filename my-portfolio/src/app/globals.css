@@ -60,6 +60,41 @@
       .touch-friendly {
         @apply p-3 sm:p-4;
       }
+      
+      /* Enhanced touch targets for terminal buttons */
+      .terminal-button {
+        min-height: 32px;
+        min-width: 32px;
+        padding: 8px;
+      }
+    }
+    
+    /* Terminal button specific styles */
+    .terminal-button {
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .terminal-button::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.3s, height 0.3s;
+    }
+    
+    .terminal-button:hover::before {
+      width: 100%;
+      height: 100%;
+    }
+    
+    .terminal-button:active::before {
+      background: rgba(255, 255, 255, 0.3);
     }
     
     /* Mobile optimizations */
@@ -71,6 +106,52 @@
       
       .mobile-spacing {
         @apply space-y-3;
+      }
+      
+      /* Prevent zoom on input focus */
+      input, textarea, select {
+        font-size: 16px !important;
+      }
+      
+      /* Better touch targets */
+      button, [role="button"] {
+        min-height: 44px;
+        min-width: 44px;
+      }
+      
+      /* Terminal buttons on mobile */
+      .terminal-button {
+        min-height: 36px;
+        min-width: 36px;
+        padding: 6px;
+      }
+      
+      /* Improved text readability */
+      body {
+        -webkit-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+      }
+    }
+    
+    /* Small tablet improvements */
+    @media (min-width: 641px) and (max-width: 768px) {
+      .terminal-button {
+        min-height: 40px;
+        min-width: 40px;
+        padding: 7px;
+      }
+    }
+    
+    /* Large screen optimizations */
+    @media (min-width: 1024px) {
+      .terminal-button {
+        min-height: 28px;
+        min-width: 28px;
+        padding: 4px;
+      }
+      
+      .terminal-button:hover {
+        transform: scale(1.1);
       }
     }
 }
@@ -126,26 +207,6 @@
 ::selection {
   background: rgba(59, 130, 246, 0.3);
   color: #ffffff;
-}
-
-/* Mobile-specific improvements */
-@media (max-width: 640px) {
-  /* Prevent zoom on input focus */
-  input, textarea, select {
-    font-size: 16px !important;
-  }
-  
-  /* Better touch targets */
-  button, [role="button"] {
-    min-height: 44px;
-    min-width: 44px;
-  }
-  
-  /* Improved text readability */
-  body {
-    -webkit-text-size-adjust: 100%;
-    -ms-text-size-adjust: 100%;
-  }
 }
 
 /* Landscape orientation adjustments */

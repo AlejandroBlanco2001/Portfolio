@@ -5,6 +5,11 @@ const Help = memo(function Help() {
         clear: "Clear the terminal 🧹",
         help: "Show this help message 🤖",
         about: "Show information about me 👨‍💻",
+        "about --skills": "Show my main skills 🛠️",
+        "about --experience": "Show my experience 💼",
+        "about --education": "Show my education 🎓",
+        "about --certifications": "Show my certifications 🎖️",
+        "about --fun": "Show a fun fact about me 🎲",
         projects: "Show my projects 🚀",
         contact: "Show my contact information 📬",
         resume: "Download my resume 📄",
@@ -15,7 +20,7 @@ const Help = memo(function Help() {
 
     const renderCommand = useMemo(() => (command: string) => {
         const commandDescription = commands[command];
-        const commandKey = command.split(" ")[0];
+        const commandKey = command;
         
         return (
             <li className="font-mono p-2 sm:p-3 border border-gray-700/50 rounded-lg hover:bg-gray-800/50 hover:border-gray-600/50 cursor-pointer transition-all duration-200 mb-2 group" key={commandKey}>

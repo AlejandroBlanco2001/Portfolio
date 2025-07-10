@@ -75,7 +75,7 @@ const Contact = memo(function Contact() {
                 <div className="flex items-center gap-2">
                     <span className="text-blue-400 text-base sm:text-lg">$</span>
                     <button
-                        className="text-green-400 hover:text-green-300 transition-colors font-semibold hover:bg-green-400/10 px-3 sm:px-4 py-2 rounded-lg hover:scale-105 transform transition-all duration-200 text-sm sm:text-base"
+                        className="text-green-400 hover:text-green-300 font-semibold hover:bg-green-400/10 px-3 sm:px-4 py-2 rounded-lg hover:scale-105 transform transition-all duration-200 text-sm sm:text-base"
                         type="submit"
                         onClick={handleSubmit}
                     >
