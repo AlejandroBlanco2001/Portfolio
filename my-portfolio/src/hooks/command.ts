@@ -14,7 +14,7 @@ export default function useTerminal() {
             },
             "about": {
                 command: "about",
-                output: "About me",
+                output: "ABOUT_COMPONENT",
                 subCommands: {
                     "skills": {
                         command: "skills",
@@ -36,14 +36,9 @@ export default function useTerminal() {
                         output: "certifications",
                         subCommands: null,
                     },
-                    "interests": {
-                        command: "interests",
-                        output: "interests",
-                        subCommands: null,
-                    },
-                    "fun-facts": {
-                        command: "fun-facts",
-                        output: "fun-facts",
+                    "fun": {
+                        command: "fun",
+                        output: "fun",
                         subCommands: null,
                     },
                 },
@@ -115,7 +110,7 @@ export default function useTerminal() {
         const commandName = commandArgs[0];
         const commandObject = listCommands[commandName] ?? null;
 
-        if (commandObject && commandObject.subCommands) {
+        if (commandObject && commandObject.subCommands && commandArgs.length > 1) {
             const subCommand = commandArgs[1];
             return executeCommand(subCommand, commandObject.subCommands);
         }
