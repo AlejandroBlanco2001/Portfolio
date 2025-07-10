@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 
-export default function Loading({ onHandleLoading }: { onHandleLoading: (loadingState: boolean) => void }) {
+const Loading = memo(function Loading({ onHandleLoading }: { onHandleLoading: (loadingState: boolean) => void }) {
     const LOADING_TEXT = [
         "booting terminal...",
         "initializing...",
@@ -39,11 +39,19 @@ export default function Loading({ onHandleLoading }: { onHandleLoading: (loading
     }, [currentIndex]);
 
     return (
-        <div className="flex flex-col items-center justify-center h-screen bg-gray-950 text-white">
-            <span className="font-mono text-5xl text-green-400 select-none">
-                {TERMINAL_SPINNERS[spinnerIndex]}
-            </span>
-            <p className="font-mono text-sm text-green-400">{LOADING_TEXT[currentIndex]}</p>
+        <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-gray-950 text-white px-4">
+            <div className="relative">
+                <span className="font-mono text-4xl sm:text-6xl text-green-400 select-none animate-pulse-slow">
+                    {TERMINAL_SPINNERS[spinnerIndex]}
+                </span>
+                <div className="absolute inset-0 bg-green-400/20 rounded-full blur-xl animate-pulse-slow"></div>
+            </div>
+            <p className="font-mono text-base sm:text-lg text-green-400 mt-4 sm:mt-6 animate-fade-in text-center">{LOADING_TEXT[currentIndex]}</p>
+            <div className="mt-3 sm:mt-4 w-24 sm:w-32 h-1 bg-gray-800 rounded-full overflow-hidden">
+                <div className="h-full bg-gradient-to-r from-green-400 to-blue-400 rounded-full animate-pulse"></div>
+            </div>
         </div>
     );
-}
+});
+
+export default Loading;

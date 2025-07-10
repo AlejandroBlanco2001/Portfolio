@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, memo } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Exit() {
+const Exit = memo(function Exit() {
   const [exitLines, setExitLines] = useState<string[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -43,4 +43,6 @@ export default function Exit() {
       </AnimatePresence>
     </div>
   );
-}
+});
+
+export default Exit;

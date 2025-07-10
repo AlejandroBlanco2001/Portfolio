@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { useRef, useState } from 'react'
+import { useRef, useState, memo, useCallback } from 'react'
 
 const bananaArt = String.raw`
 ░░░░░░░░░░░░░░░▄▀▀▀▄░░░░░░░░░░░░░
@@ -25,11 +25,11 @@ const bananaArt = String.raw`
 ░░░░░░▀▀▀▀▀▀▀░░░░░░▀▀▀▀▀▀░░░░░░░░
 `
 
-export default function Peanut() {
+const Peanut = memo(function Peanut() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  const handlePlay = () => {
+  const handlePlay = useCallback(() => {
     if (!audioRef.current) {
       audioRef.current = new Audio('/peanut.mp3');
       audioRef.current.loop = true;
@@ -40,15 +40,15 @@ export default function Peanut() {
     }).catch(err => {
       console.error('Autoplay blocked:', err);
     });
-  };
+  }, []);
 
-  const handleStop = () => {
+  const handleStop = useCallback(() => {
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.currentTime = 0;
       setIsPlaying(false);
     }
-  };
+  }, []);
 
   return (
     <div className="flex flex-col items-center space-y-2">
@@ -81,4 +81,6 @@ export default function Peanut() {
       )}
     </div>
   );
-}
+});
+
+export default Peanut;

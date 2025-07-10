@@ -13,7 +13,7 @@ export default function Home() {
   };
 
   return (
-    <div className="bg-gray-950 h-screen w-screen flex items-center justify-center">
+    <div className="bg-gray-950 h-screen w-screen flex items-center justify-center p-4 sm:p-6">
       {isLoading ? (
         <Loading onHandleLoading={onHandleLoading} />
       ) : (
@@ -24,7 +24,7 @@ export default function Home() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
-            className="w-full"
+            className="w-full max-w-4xl"
           >
             <Terminal />
           </motion.div>

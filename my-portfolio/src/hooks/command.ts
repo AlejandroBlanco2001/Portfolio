@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { Command } from "./types";
 
 export default function useTerminal() {
     const [history, setHistory] = useState<{ command: string, output: string }[]>([]);
     const [currentIndex, setCurrentIndex] = useState<number | null>(null);
 
-    const commands = Object.freeze<Record<string, Command>>(
+    const commands = useMemo(() => Object.freeze<Record<string, Command>>(
         {
             "help": {
                 command: "help",
@@ -84,17 +84,43 @@ export default function useTerminal() {
                 subCommands: null,
             }
         }
-    );
+    ), [history]);
 
-    const runCommand = (command: string) => {
+    const runCommand = useCallback((command: string) => {
         if (command === "clear") {
             setHistory([]);
         } else {
             executeCommand(command);
         }
-    };
+    }, []);
 
-    const executeCommand = (command: string, commandList: Record<string, Command> | null = null) => {
+    const findCommand = useCallback((
+        commandArgs: string[],
+        commandList: Record<string, Command>
+    ): { commandObj: Command | null, fullCommand: string } => {
+        if (commandArgs.length === 0) {
+            return { commandObj: null, fullCommand: "" };
+        }
+        const [current, ...rest] = commandArgs;
+        const cmdObj = commandList[current];
+        if (!cmdObj) {
+            return { commandObj: null, fullCommand: commandArgs.join(" ") };
+        }
+        if (rest.length > 0 && cmdObj.subCommands) {
+            const subResult = findCommand(rest, cmdObj.subCommands);
+            if (subResult.commandObj) {
+                return {
+                    commandObj: subResult.commandObj,
+                    fullCommand: [current, ...rest].join(" ")
+                };
+            }
+        }
+
+        
+        return { commandObj: cmdObj, fullCommand: [current, ...rest].join(" ") };
+    }, []);
+
+    const executeCommand = useCallback((command: string, commandList: Record<string, Command> | null = null) => {
         setCurrentIndex(prev => {
             if (command === "clear") {
                 return 0;
@@ -107,27 +133,36 @@ export default function useTerminal() {
 
         const cleanedCommand = command.replace(/[^a-zA-Z\s]/g, "");
         const commandArgs = cleanedCommand.split(" ").filter(Boolean);
-        const commandName = commandArgs[0];
-        const commandObject = listCommands[commandName] ?? null;
 
-        if (commandObject && commandObject.subCommands && commandArgs.length > 1) {
-            const subCommand = commandArgs[1];
-            return executeCommand(subCommand, commandObject.subCommands);
-        }
+        const { commandObj, fullCommand } = findCommand(commandArgs, listCommands);
 
-        console.log(commandObject);
-
-        if (commandObject) {
-            setHistory((prev) => [...prev, { command: commandObject.command, output: commandObject.output }]);
+        if (commandObj) {
+            setHistory((prev) => [
+                ...prev,
+                { command: command.trim(), output: commandObj.output }
+            ]);
         } else {
-            setHistory((prev) => [...prev, { command: command, output: "Command not found" }]);
+            setHistory((prev) => [
+                ...prev,
+                { command: command.trim(), output: "Command not found" }
+            ]);
         }
-    }
+    }, [commands, findCommand]);
 
-    const validateCommand = (command: string) => {
-        return commands[command] !== undefined;
-    }
+    const validateCommand = useCallback((command: string) => {
+        const cleanedCommand = command.replace(/[^a-zA-Z\s]/g, "");
+        const commandArgs = cleanedCommand.split(" ").filter(Boolean);
+        let currentCommands = commands;
+        for (let i = 0; i < commandArgs.length; i++) {
+            const cmd = commandArgs[i];
+            const cmdObj = currentCommands[cmd];
+            if (!cmdObj) return false;
+            if (i === commandArgs.length - 1) return true;
+            if (!cmdObj.subCommands) return false;
+            currentCommands = cmdObj.subCommands;
+        }
+        return true;
+    }, [commands]);
 
     return { history, runCommand, validateCommand, currentIndex, setCurrentIndex };
 }
-
