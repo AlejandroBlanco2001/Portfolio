@@ -15,7 +15,38 @@ export default function useTerminal() {
             "about": {
                 command: "about",
                 output: "About me",
-                subCommands: null,
+                subCommands: {
+                    "skills": {
+                        command: "skills",
+                        output: "skills",
+                        subCommands: null,
+                    },
+                    "experience": {
+                        command: "experience",
+                        output: "experience",
+                        subCommands: null,
+                    },
+                    "education": {
+                        command: "education",
+                        output: "education",
+                        subCommands: null,
+                    },
+                    "certifications": {
+                        command: "certifications",
+                        output: "certifications",
+                        subCommands: null,
+                    },
+                    "interests": {
+                        command: "interests",
+                        output: "interests",
+                        subCommands: null,
+                    },
+                    "fun-facts": {
+                        command: "fun-facts",
+                        output: "fun-facts",
+                        subCommands: null,
+                    },
+                },
             },
             "projects": {
                 command: "projects",
@@ -68,7 +99,7 @@ export default function useTerminal() {
         }
     };
 
-    const executeCommand = (command: string) => {
+    const executeCommand = (command: string, commandList: Record<string, Command> | null = null) => {
         setCurrentIndex(prev => {
             if (command === "clear") {
                 return 0;
@@ -77,7 +108,19 @@ export default function useTerminal() {
             }
         });
 
-        const commandObject = commands[command] ?? null;
+        const listCommands = commandList ?? commands;
+
+        const cleanedCommand = command.replace(/[^a-zA-Z\s]/g, "");
+        const commandArgs = cleanedCommand.split(" ").filter(Boolean);
+        const commandName = commandArgs[0];
+        const commandObject = listCommands[commandName] ?? null;
+
+        if (commandObject && commandObject.subCommands) {
+            const subCommand = commandArgs[1];
+            return executeCommand(subCommand, commandObject.subCommands);
+        }
+
+        console.log(commandObject);
 
         if (commandObject) {
             setHistory((prev) => [...prev, { command: commandObject.command, output: commandObject.output }]);

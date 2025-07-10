@@ -1,5 +1,5 @@
 export interface Command {
     command: string;
     output: string;
-    subCommands: Command[] | null;
+    subCommands: Record<string, Command> | null;
 }

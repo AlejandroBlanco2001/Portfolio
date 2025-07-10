@@ -2,12 +2,6 @@
 
 import { useState, useRef, useEffect } from "react";
 import useTerminal from "@/hooks/command";
-import Peanut from "@/app/peanut";
-import Projects from "@/app/projects";
-import Contact from "@/app/contact";
-import Socials from "@/app/socials";
-import Help from "@/app/help";
-import Exit from "@/app/exit";
 import CommandLine from "./command";
 import { INITIAL_PHRASE } from "@/constants";
 
@@ -63,7 +57,6 @@ export default function Terminal() {
                     setCurrentCommand(history[newIndex].command);
                     return newIndex;
                 });
-
                 break;
             default:
                 break;
@@ -77,7 +70,6 @@ export default function Terminal() {
     return (
         <>
             <div className="bg-gray-900 rounded-lg shadow-2xl w-full h-96 max-w-4xl mx-auto flex flex-col">
-                {/* Terminal Header */}
                 <div className="bg-gray-800 rounded-t-lg p-3 flex items-center space-x-2">
                     <button className="w-3 h-3 bg-red-500 rounded-full cursor-pointer" onClick={handleClose}></button>
                     <button className="w-3 h-3 bg-yellow-500 rounded-full cursor-pointer"></button>
@@ -85,7 +77,6 @@ export default function Terminal() {
                     <div className="ml-4 text-gray-400 text-sm font-mono">Isaac Blanco - Software Engineer - Backend</div>
                 </div>
 
-                {/* Terminal Content */}
                 <div ref={terminalRef} className="p-4 font-mono text-green-400 flex-1 overflow-y-auto no-scrollbar">
                     <CommandLine 
                         command="whoami" 

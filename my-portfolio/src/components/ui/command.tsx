@@ -1,3 +1,4 @@
+import About from "@/app/about";
 import Exit from "@/app/exit";
 import Help from "@/app/help";
 import Peanut from "@/app/peanut";
@@ -20,6 +21,14 @@ export default function CommandLine({ command, output }: { command: string, outp
                 return <Help />;
             case "EXIT_COMPONENT":
                 return <Exit />;
+            case "ABOUT_COMPONENT":
+            case "skills":
+            case "experience":
+            case "education":
+            case "certifications":
+            case "interests":
+            case "fun-facts":
+                return <About command={command} />;
             default:
                 return output;
         }

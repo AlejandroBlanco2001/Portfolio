@@ -5,13 +5,10 @@ import { useEffect, useState } from "react";
 export default function Loading({ onHandleLoading }: { onHandleLoading: (loadingState: boolean) => void }) {
     const LOADING_TEXT = [
         "booting terminal...",
-        "loading system...",
         "initializing...",
         "loading modules...",
-        "starting up...",
         "almost there...",
         "just a few more seconds...",
-        "a little bit more...",
         "Done!",
     ];
 
@@ -30,12 +27,10 @@ export default function Loading({ onHandleLoading }: { onHandleLoading: (loading
 
         const textInterval = setInterval(() => {
             setCurrentIndex((prev) => {
-                if (prev < LOADING_TEXT.length - 1) {
-                    return prev + 1;
-                }
-                return prev;
+                const isLastIndex = prev === LOADING_TEXT.length - 1;
+                return isLastIndex ? 0 : prev + 1;
             });
-        }, 800);
+        }, 500);
 
         return () => {
             clearInterval(interval);
