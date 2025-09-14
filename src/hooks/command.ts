@@ -57,7 +57,7 @@ export default function useTerminal() {
                 command: "resume",
                 output: (() => {
                     if (typeof window !== "undefined") {
-                        window.open("/IsaacBlanco_CV.pdf", "_blank");
+                        // window.open("/IsaacBlanco_CV.pdf", "_blank");
                     }
                     return "Opening resume...";
                 })(),
