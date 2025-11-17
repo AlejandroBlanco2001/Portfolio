@@ -31,7 +31,9 @@ const Socials = memo(function Socials() {
         },
     ], []);
 
-    const handleSocialClick = useCallback((url: string) => {
+    const handleSocialClick = useCallback((e: React.MouseEvent | React.KeyboardEvent, url: string) => {
+        e.preventDefault();
+        e.stopPropagation();
         window.open(url, '_blank');
     }, []);
 
@@ -50,7 +52,18 @@ const Socials = memo(function Socials() {
 
     const renderSocial = useCallback((social: Social) => {
         return (
-            <li key={social.name} className="font-mono p-2 sm:p-3 border border-gray-700/50 rounded-lg hover:bg-gray-800/50 hover:border-gray-600/50 cursor-pointer transition-all duration-300 mb-2 group" onClick={() => handleSocialClick(social.url)}>
+            <li 
+                key={social.name} 
+                role="button"
+                tabIndex={0}
+                className="font-mono p-2 sm:p-3 border border-gray-700/50 rounded-lg hover:bg-gray-800/50 hover:border-gray-600/50 cursor-pointer transition-all duration-300 mb-2 group" 
+                onClick={(e) => handleSocialClick(e, social.url)}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        handleSocialClick(e, social.url);
+                    }
+                }}
+            >
                 <div className="flex items-center gap-2 sm:gap-3">
                     <span className="text-blue-400 text-base sm:text-lg">$</span>
                     {renderSVG(social.icon)}

@@ -5,7 +5,9 @@ import Help from "@/app/help";
 import Peanut from "@/app/peanut";
 import Projects from "@/app/projects";
 import Socials from "@/app/socials";
+import Resume from "@/app/resume";
 import { Contact } from "lucide-react";
+import Blog from "@/app/blog";
 
 interface CommandLineProps {
     command: string;
@@ -29,6 +31,10 @@ const CommandLine = memo(function CommandLine({ command, output }: CommandLinePr
                 return <Exit />;
             case "ABOUT_COMPONENT":
                 return <About command={command} />;
+            case "BLOG_COMPONENT":
+                return <Blog />;
+            case "RESUME_COMPONENT":
+                return <Resume />;
             case "skills":
             case "experience":
             case "education":

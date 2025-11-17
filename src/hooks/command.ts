@@ -55,12 +55,7 @@ export default function useTerminal() {
             },
             "resume": {
                 command: "resume",
-                output: (() => {
-                    if (typeof window !== "undefined") {
-                        // window.open("/IsaacBlanco_CV.pdf", "_blank");
-                    }
-                    return "Opening resume...";
-                })(),
+                output: "RESUME_COMPONENT",
                 subCommands: null,
             },
             "exit": {
@@ -87,7 +82,12 @@ export default function useTerminal() {
                 command: "socials",
                 output: "SOCIALS_COMPONENT",
                 subCommands: null,
-            }
+            },
+            "blog": {
+                command: "blog",
+                output: "BLOG_COMPONENT",
+                subCommands: null,
+            },
         }
     ), [history]);
 

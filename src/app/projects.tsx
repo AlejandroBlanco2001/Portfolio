@@ -19,13 +19,27 @@ const Projects = memo(function Projects() {
         }).format(new Date(date));
     }, []);
 
-    const handleRepoClick = useCallback((url: string) => {
+    const handleRepoClick = useCallback((e: React.MouseEvent | React.KeyboardEvent, url: string) => {
+        e.preventDefault();
+        e.stopPropagation();
         window.open(url, '_blank');
     }, []);
 
     const renderRepos = useCallback((repo: Repo) => {
         return (
-            <li key={repo.id} role="button" tabIndex={0} aria-label={`Open ${repo.name} on GitHub`} className="font-mono p-3 sm:p-4 border border-gray-700/50 rounded-xl hover:bg-gray-800/50 hover:border-gray-600/50 cursor-pointer transition-all duration-300 mb-3 group" onClick={() => handleRepoClick(repo.url)}>
+            <li 
+                key={repo.id} 
+                role="button" 
+                tabIndex={0} 
+                aria-label={`Open ${repo.name} on GitHub`} 
+                className="font-mono p-3 sm:p-4 border border-gray-700/50 rounded-xl hover:bg-gray-800/50 hover:border-gray-600/50 cursor-pointer transition-all duration-300 mb-3 group" 
+                onClick={(e) => handleRepoClick(e, repo.url)}
+                onKeyDown={(e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        handleRepoClick(e, repo.url);
+                    }
+                }}
+            >
                 <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-2">
                     <div className="flex items-center gap-2 sm:gap-3">
                         <span className="text-blue-400 text-base sm:text-lg">$</span>
